@@ -1,0 +1,87 @@
+1 select statements
+---------------
+a. Return all the products:
+b. name
+c. unit price
+d. new price (unit price * 1.1)
+select 
+*
+from products;
+select 
+name, 
+unit_price,
+unit_price * 1.1 as 'new price'
+from products;
+---------------------------
+2. Where clause
+----------------------------
+a. Get the orders placed this year.
+select 
+*
+From orders
+where order_date > '2018-12-31';
+or
+select 
+*
+From orders
+where order_date >= '2019-01-01';
+b. From the order_items table, get the items for order #6 where the total price is greater than 30
+select 
+ *
+From order_items
+where order_id = 6 and quantity * unit_price > 30 ;
+c. Return products with quantity in stcol equal to 49, 38, 72
+select * 
+from products
+where quantity_in_stock in (38, 49, 72)
+ ;
+c. Return customers born between 1/1/1990 and 1/1/2000
+select *
+from customers
+where birth_date between '1990-01-01' and '2000-01-01';
+d. Get the customers whose addresses contaon TRAIL or AVENUE
+select *
+from customers
+where address like '%Trail%' 
+or    address like '%avenue%'
+;
+e. get phone numbers end with 9
+select *
+from customers
+where phone like '%9';
+
+f. Get the customers whose first name are Elka or Ambur.
+select * 
+from customers
+where first_name REGEXP 'elka|ambur'
+;
+g. Get the customers whose last name end with ey or on
+select *
+from customers
+where last_name regexp 'ey$|on$'
+;
+h. Get the customers whose last name begins with my or contains se
+select *
+from customers
+where last_name regexp '^my|se'
+;
+i. Get the customers whose last name contains B followed by R or u
+select *
+from customers
+where last_name regexp 'b[ru]'
+;
+j. Get the orders that are not shipped yet. 
+select *
+from orders
+where shipped_date is null
+;
+k.Return orders where order_id is 2 and total price sorted in descending
+select *, quantity * unit_price as 'Total Price'
+from order_items
+where order_id = 2  
+order by order_id desc;
+l. Get the top 3 loyal customers. 
+select * 
+from customers
+order by points desc
+limit 3;
